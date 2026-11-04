@@ -6,7 +6,12 @@ git clone https://github.com/ophub/luci-app-amlogic --single-branch --depth=1 cl
 git clone https://github.com/Zerogiven-OpenWRT-Packages/luci-app-podman --single-branch --depth=1 feeds/luci/applications/luci-app-podman
 
 # Add nikki feed
-echo "src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;main" >> feeds.conf.default
+if ! grep -qE '^src-git[[:space:]]+nikki[[:space:]]' feeds.conf.default; then
+    echo "src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;main" >> feeds.conf.default
+fi
+
+# Add Vantage theme feed
+echo "src-git vantage https://github.com/anothaDev/luci-theme-vantage.git;main" >> feeds.conf.default
 
 # Adjust packages
 rm -rf feeds/luci/applications/luci-app-daed feeds/luci/applications/luci-app-passwall feeds/packages/net/dae
